@@ -12,3 +12,17 @@ Navigate through your records seamlessly with a user-friendly interface. Sort, s
 Security is paramount. Only logged-in users access the various modules, and logout functionality ensures data privacy. Forgot your password? No worries, our integrated mailer system has you covered. 
 
 Experience the speed and efficiency of the Medoo framework that powers the backend, ensuring a seamless user experience.
+
+#Technologies Used:
+  1) Front End:
+       a) HTML
+       b) CSS
+       c) Bootstrap
+       d) Javascript
+  2) Backend:
+     a) PHP
+     b) Ajax
+     c) (Medoo Framework) for database
+  3) Database:
+     a) MySQL 
+     
