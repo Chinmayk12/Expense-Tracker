@@ -13,7 +13,7 @@ Security is paramount. Only logged-in users access the various modules, and logo
 
 Experience the speed and efficiency of the Medoo framework that powers the backend, ensuring a seamless user experience.
 
-#Technologies Used:
+# Technologies Used:
   1) Front End:
        a) HTML
        b) CSS
