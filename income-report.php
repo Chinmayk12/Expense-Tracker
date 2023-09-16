@@ -202,8 +202,36 @@
                         exportOptions: {
                             columns: ':visible'
                         },
-                        filename: user + '-' + month + '-' + year + '-income',
-                        buttonCss: 'btn btn-danger' // Custom CSS class for the PDF button
+                        filename: user + '-income' + '-records',
+                        buttonCss: 'btn btn-danger', // Custom CSS class for the PDF button
+                        customize: function(doc) {
+                            // Calculate the total expense
+                            var totalIncome = $("#totalIncome").text();
+
+                            // Track the current page number
+                            var currentPage = 1;
+
+                            // Add a footer to each page
+                            doc['footer'] = function(page, pageCount) {
+                                // Check if this is the last page
+                                if (page === pageCount) {
+                                    return {
+                                        text: 'Total Income: ₹' + totalIncome,
+                                        alignment: 'center',
+                                        fontSize: 15
+                                    };
+                                } else {
+                                    return null; // No footer on other pages
+                                }
+                            };
+
+                            // Modify the content of each page to update the current page number
+                            doc.content.forEach(function(item) {
+                                if (item.page) {
+                                    item.page = currentPage++;
+                                }
+                            });
+                        }
                     },
                     {
                         extend: 'print',
