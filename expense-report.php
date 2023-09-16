@@ -13,13 +13,16 @@
     $currentYear = date("Y");
 ?>
 <html>
+
 <head>
     <style>
-        .main-content {
-        min-height: 100vh; /* Ensure a minimum height of 100% of the viewport height for the main content */
+    .main-content {
+        min-height: 100vh;
+        /* Ensure a minimum height of 100% of the viewport height for the main content */
     }
     </style>
 </head>
+
 <head>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
@@ -201,7 +204,7 @@
                         exportOptions: {
                             columns: ':visible'
                         },
-                        filename: user +'-expense'+'-records',
+                        filename: user + '-expense' + '-records',
                         buttonCss: 'btn btn-info' // Custom CSS class for the CSV button
                     },
                     {
@@ -209,7 +212,7 @@
                         exportOptions: {
                             columns: ':visible'
                         },
-                        filename: user +'-expense'+'-records',
+                        filename: user + '-expense' + '-records',
                         buttonCss: 'btn btn-success', // Custom CSS class for the Excel button
                     },
                     {
@@ -218,15 +221,43 @@
                         exportOptions: {
                             columns: ':visible'
                         },
-                        filename: user +'-expense'+'-records',
-                        buttonCss: 'btn btn-danger' // Custom CSS class for the PDF button
+                        filename: user + '-expense' + '-records',
+                        buttonCss: 'btn btn-danger', // Custom CSS class for the PDF button
+                        customize: function(doc) {
+                            // Calculate the total expense
+                            var totalExpense = $("#totalExpense").text();
+
+                            // Track the current page number
+                            var currentPage = 1;
+
+                            // Add a footer to each page
+                            doc['footer'] = function(page, pageCount) {
+                                // Check if this is the last page
+                                if (page === pageCount) {
+                                    return {
+                                        text: 'Total Expense: ₹' + totalExpense,
+                                        alignment: 'center',
+                                        fontSize: 15
+                                    };
+                                } else {
+                                    return null; // No footer on other pages
+                                }
+                            };
+
+                            // Modify the content of each page to update the current page number
+                            doc.content.forEach(function(item) {
+                                if (item.page) {
+                                    item.page = currentPage++;
+                                }
+                            });
+                        }
                     },
                     {
                         extend: 'print',
                         exportOptions: {
                             columns: ':visible'
                         },
-                        filename: user +'-expense'+'-records',
+                        filename: user + '-expense' + '-records',
                         buttonCss: 'btn btn-secondary' // Custom CSS class for the Print button
                     }
                 ],
